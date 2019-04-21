@@ -1,5 +1,6 @@
 from src import Observer
 from src.ConsoleHelper import ConsoleHelper
+from src.ad.AdvertisementManager import AdvertisementManager
 
 
 class Cook(Observer.Publisher, Observer.Subscriber):
@@ -13,5 +14,6 @@ class Cook(Observer.Publisher, Observer.Subscriber):
     def update(self, publisher, args):
         order = args
         ConsoleHelper.write_message('Start cooking - %s, cooking time %smin' % (order, order.get_total_cooking_time()))
+        AdvertisementManager(order.get_total_cooking_time() * 60).process_videos()
         self.set_changed()
         self.notify_subscribers(args)
